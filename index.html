@@ -6,283 +6,567 @@
 <title>Whose Land Is It? – Simulation, International Law & GK Workbook</title>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f3f6f8;--surface:#fff;--ink:#12263a;--muted:#51657a;--line:#c9d5df;--sea:#1b5e8a;--sea-soft:#d6e8f4;--buoy:#e8590c;--ok:#1f7a4d;--bad:#b3261e;--sand:#f1e2b8;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1b27;--surface:#152736;--ink:#e8eff5;--muted:#9fb3c4;--line:#2b4155;--sea:#6bb6e6;--sea-soft:#1c3a52;--buoy:#ff8a4c;--ok:#5fd19a;--bad:#ff8a80;--sand:#4a4126}}
-:root[data-theme="dark"]{--bg:#0e1b27;--surface:#152736;--ink:#e8eff5;--muted:#9fb3c4;--line:#2b4155;--sea:#6bb6e6;--sea-soft:#1c3a52;--buoy:#ff8a4c;--ok:#5fd19a;--bad:#ff8a80;--sand:#4a4126}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Source Serif 4",Georgia,serif}
-h1,h2,h3,.tab,button,label{font-family:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif}
-header{padding:28px 20px 12px;max-width:860px;margin:auto}
-header p.school{margin:0;color:var(--muted);font-size:15px}
-h1{font-size:clamp(28px,6vw,44px);line-height:1.1;margin:6px 0 10px}
-.ur{font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq",serif;direction:rtl;unicode-bidi:isolate}
-nav{display:flex;gap:6px;flex-wrap:wrap;max-width:860px;margin:8px auto;padding:0 20px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
-.tab{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 14px;border-radius:999px;cursor:pointer;font-size:15px}
-.tab[aria-selected="true"]{background:var(--sea);color:#fff;border-color:var(--sea)}
-:is(button,select,textarea,input):focus-visible{outline:3px solid var(--buoy);outline-offset:2px}
-main{max-width:860px;margin:auto;padding:8px 20px 60px}
-section{display:none}section.on{display:block}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
-.card h2,.card h3{margin:0 0 8px}
-input[type=range]{width:100%;accent-color:var(--buoy);height:32px}
-.readout{background:var(--sea-soft);border-radius:10px;padding:12px 14px;min-height:92px}
-.btns{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-.btn{border:1.5px solid var(--sea);background:transparent;color:var(--sea);padding:9px 14px;border-radius:10px;cursor:pointer;font-size:15px}
-.btn.sel,.btn.primary{background:var(--sea);color:#fff}
-svg{width:100%;height:auto;display:block;border-radius:10px;background:var(--sea-soft);cursor:pointer}
-.q{border-top:1px solid var(--line);padding:14px 0}
-.q:first-of-type{border-top:0}
-.opt{display:block;width:100%;text-align:left;margin:6px 0;border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:10px 12px;border-radius:10px;cursor:pointer;font-size:16px}
-.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,transparent)}
-.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 15%,transparent)}
-.fb{font-size:15px;color:var(--muted);margin:4px 0 0}
-select,textarea{width:100%;font:inherit;padding:8px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
-textarea{min-height:84px}
-.vrow{display:grid;grid-template-columns:minmax(120px,1fr) 2fr;gap:10px;align-items:center;margin:8px 0}
-.score{font:700 22px "Bricolage Grotesque",sans-serif;color:var(--buoy)}
-.small{font-size:15px;color:var(--muted)}
-dl{margin:0}dt{font-weight:600;margin-top:10px}dd{margin:2px 0 0}
-.note-box{border-left:4px solid var(--buoy);background:color-mix(in srgb,var(--buoy) 8%,var(--surface));padding:10px 14px;margin:10px 0;border-radius:0 8px 8px 0;font-size:15px;}
-.interactive-hint{font-size:13px;color:var(--buoy);margin-top:4px;font-weight:600;}
-@media(max-width:560px){.vrow{grid-template-columns:1fr}}
-@media print{nav,.btns,.noprint{display:none!important}section{display:block!important;break-before:page}body{background:#fff;color:#000}.card{border-color:#999}}
+:root {
+  --bg: #f0f9ff;
+  --surface: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #cbd5e1;
+  --sea: #0ea5e9;
+  --sea-soft: #e0f2fe;
+  --buoy: #f97316;
+  --ok: #10b981;
+  --bad: #ef4444;
+  --sand: #fef3c7;
+  --accent-purple: #a855f7;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --ink: #f1f5f9;
+    --muted: #94a3b8;
+    --line: #334155;
+    --sea: #38bdf8;
+    --sea-soft: #0c4a6e;
+    --buoy: #fb923c;
+    --ok: #34d399;
+    --bad: #f87171;
+    --sand: #451a03;
+    --accent-purple: #c084fc;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --ink: #f1f5f9;
+  --muted: #94a3b8;
+  --line: #334155;
+  --sea: #38bdf8;
+  --sea-soft: #0c4a6e;
+  --buoy: #fb923c;
+  --ok: #34d399;
+  --bad: #f87171;
+  --sand: #451a03;
+  --accent-purple: #c084fc;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 "Source Serif 4", Georgia, serif; }
+h1, h2, h3, .tab, button, label { font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif; }
+
+header { padding: 32px 20px 16px; max-width: 860px; margin: auto; text-align: center; }
+header p.school { margin: 0; color: var(--muted); font-size: 15px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+h1 { font-size: clamp(28px, 6vw, 44px); line-height: 1.15; margin: 12px 0 10px; color: var(--sea); }
+.ur { font-family: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", serif; direction: rtl; unicode-bidi: isolate; }
+
+nav { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 860px; margin: 16px auto; padding: 0 20px; position: sticky; top: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 50; padding-top: 8px; padding-bottom: 8px; }
+.tab { border: 2px solid var(--line); background: var(--surface); color: var(--ink); padding: 10px 18px; border-radius: 999px; cursor: pointer; font-size: 15px; font-weight: 600; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.tab:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-color: var(--sea); }
+.tab[aria-selected="true"] { background: var(--sea); color: #fff; border-color: var(--sea); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3); }
+
+:is(button, select, textarea, input):focus-visible { outline: 3px solid var(--buoy); outline-offset: 2px; }
+main { max-width: 860px; margin: auto; padding: 8px 20px 80px; }
+section { display: none; animation: fadeIn 0.4s ease-out; }
+section.on { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; margin: 16px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+.card h2, .card h3 { margin: 0 0 12px; color: var(--ink); }
+input[type=range] { width: 100%; accent-color: var(--buoy); height: 28px; cursor: pointer; }
+.readout { background: var(--sea-soft); border-radius: 12px; padding: 16px; min-height: 92px; border-left: 4px solid var(--sea); transition: all 0.3s ease; }
+.btns { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+.btn { border: 2px solid var(--sea); background: transparent; color: var(--sea); padding: 10px 16px; border-radius: 12px; cursor: pointer; font-size: 15px; font-weight: 600; transition: all 0.2s ease; }
+.btn:hover { background: var(--sea-soft); transform: translateY(-1px); }
+.btn.sel, .btn.primary { background: var(--sea); color: #fff; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3); }
+.btn.primary { background: var(--buoy); border-color: var(--buoy); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
+.btn.primary:hover { background: #ea580c; }
+
+svg { width: 100%; height: auto; display: block; border-radius: 12px; background: var(--sea-soft); cursor: pointer; border: 2px solid var(--line); transition: box-shadow 0.3s ease; }
+svg:hover { box-shadow: 0 8px 16px rgba(0,0,0,0.08); }
+#birSvg path, #birSvg rect { transition: opacity 0.3s, filter 0.3s; }
+#birSvg path:hover, #birSvg rect:hover { filter: brightness(1.1) drop-shadow(0 0 6px rgba(0,0,0,0.15)); }
+
+.q { border-top: 1px solid var(--line); padding: 18px 0; }
+.q:first-of-type { border-top: 0; }
+.opt { display: block; width: 100%; text-align: left; margin: 8px 0; border: 2px solid var(--line); background: var(--surface); color: var(--ink); padding: 12px 16px; border-radius: 12px; cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.2s ease; }
+.opt:hover:not(:disabled) { border-color: var(--sea); background: var(--sea-soft); }
+.opt.right { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 15%, transparent); color: var(--ok); font-weight: 700; }
+.opt.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 15%, transparent); color: var(--bad); }
+.fb { font-size: 15px; color: var(--muted); margin: 8px 0 0; line-height: 1.5; }
+select, textarea { width: 100%; font: inherit; padding: 12px; border-radius: 12px; border: 2px solid var(--line); background: var(--surface); color: var(--ink); transition: border-color 0.2s, box-shadow 0.2s; }
+select:focus, textarea:focus { border-color: var(--sea); box-shadow: 0 0 0 3px var(--sea-soft); outline: none; }
+textarea { min-height: 96px; resize: vertical; }
+
+.vrow { display: grid; grid-template-columns: minmax(140px, 1fr) 2fr; gap: 12px; align-items: center; margin: 12px 0; }
+.score { font: 700 24px "Bricolage Grotesque", sans-serif; color: var(--buoy); background: var(--sand); padding: 4px 12px; border-radius: 8px; display: inline-block; }
+.small { font-size: 15px; color: var(--muted); }
+dl { margin: 0; }
+dt { font-weight: 700; margin-top: 16px; color: var(--sea); font-size: 18px; }
+dd { margin: 6px 0 0; line-height: 1.6; }
+.note-box { border-left: 4px solid var(--buoy); background: color-mix(in srgb, var(--buoy) 8%, var(--surface)); padding: 14px 18px; margin: 16px 0; border-radius: 0 12px 12px 0; font-size: 15px; }
+.interactive-hint { font-size: 14px; color: var(--buoy); margin-top: 8px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+
+/* Animations */
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes flow { to { stroke-dashoffset: -20; } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+@keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+.ship-anim { animation: bob 2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.river-anim { animation: flow 1s linear infinite; }
+
+.mute-btn { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; border-radius: 50%; background: var(--surface); border: 2px solid var(--line); color: var(--ink); font-size: 24px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 100; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+.mute-btn:hover { transform: scale(1.1); border-color: var(--sea); }
+.mute-btn.muted { opacity: 0.6; background: var(--bg); }
+
+@media(max-width: 560px) {
+  .vrow { grid-template-columns: 1fr; }
+  nav { gap: 6px; }
+  .tab { font-size: 14px; padding: 8px 12px; }
+}
+@media print {
+  nav, .btns, .noprint, .mute-btn { display: none !important; }
+  section { display: block !important; break-before: page; }
+  body { background: #fff; color: #000; }
+  .card { border-color: #999; box-shadow: none; }
+}
 </style>
 </head>
 <body>
+
+<button id="muteBtn" class="mute-btn" aria-label="Toggle sound effects" title="Toggle Sound Effects">🔊</button>
+
 <header>
-<p class="school">Global Educational Curriculum Lab · Geopolitics & International Law</p>
-<h1>Whose Land Is It? Places That Belong to No One</h1>
+<p class="school">🌍 Global Educational Curriculum Lab · Geopolitics & International Law</p>
+<h1>Whose Land Is It? 🗺️ Places That Belong to No One</h1>
 <p>Based on global geopolitical frameworks and BBC reporting. Explore interactive simulations of maritime and terrestrial boundaries, study international law standards, and test your understanding. Key concept: <b>terra nullius</b> <span class="ur">(ٹیرا نولیئس)</span> – land unclaimed by any recognized sovereign state.</p>
 </header>
-<nav role="tablist" aria-label="Sections">
-<button class="tab" role="tab" aria-selected="true" data-t="learn">Learn & Standards</button>
-<button class="tab" role="tab" aria-selected="false" data-t="sea">Sim 1: Maritime Zones</button>
-<button class="tab" role="tab" aria-selected="false" data-t="bir">Sim 2: Bir Tawil</button>
-<button class="tab" role="tab" aria-selected="false" data-t="siga">Sim 3: River Borders</button>
-<button class="tab" role="tab" aria-selected="false" data-t="work">Workbook & Assessment</button>
-</nav>
-<main>
 
+<nav role="tablist" aria-label="Sections">
+<button class="tab" role="tab" aria-selected="true" data-t="learn">📚 Learn & Standards</button>
+<button class="tab" role="tab" aria-selected="false" data-t="sea">⚓ Sim 1: Maritime Zones</button>
+<button class="tab" role="tab" aria-selected="false" data-t="bir">🏜️ Sim 2: Bir Tawil</button>
+<button class="tab" role="tab" aria-selected="false" data-t="siga">🌊 Sim 3: River Borders</button>
+<button class="tab" role="tab" aria-selected="false" data-t="work">📝 Workbook & Assessment</button>
+</nav>
+
+<main>
 <section id="learn" class="on">
-<div class="card"><h2>The Big Picture & International Legal Standards</h2>
+<div class="card">
+<h2>The Big Picture & International Legal Standards</h2>
 <dl>
-<dt>Open Sea & UNCLOS Framework</dt><dd>Governed internationally by the United Nations Convention on the Law of the Sea (UNCLOS). Beyond 200 nautical miles (≈370 km) from baseline coasts lie the High Seas, constituting roughly 43% of Earth's surface (World Economic Forum), dedicated to peaceful uses and common heritage of humankind[cite: 1].</dd>
-<dt>Mare Liberum</dt><dd>Latin for “Free Sea”. Formulated by Dutch jurist Hugo Grotius in 1609, establishing that oceans are international territory open to all nations for trade and navigation[cite: 1].</dd>
-<dt>Terra Nullius & Historical Critique</dt><dd>Latin for “land belonging to no one”. Historically weaponized during the colonial era to displace indigenous populations by falsely declaring inhabited lands legally vacant. In contemporary international law, true <i>terra nullius</i> is virtually non-existent except for unique anomalies.</dd>
-<dt>Marie Byrd Land (Antarctica & The Antarctic Treaty System)</dt><dd>Covering over 1.6 million km², this is Earth's largest unclaimed landmass[cite: 1]. Under the 1959 Antarctic Treaty, territorial claims are frozen, dedicating the continent entirely to peaceful scientific cooperation[cite: 1].</dd>
-<dt>Bir Tawil (Superimposed Boundary Residual)</dt><dd>A 2,060 km² trapezoidal area along the Egypt–Sudan border created by conflicting colonial maps from 1899 and 1902. Because both nations claim the resource-rich Halaib Triangle[cite: 1], neither claims Bir Tawil, rendering it a modern land anomaly.</dd>
-<dt>Gornja Siga & Micronationalism</dt><dd>A river-meander parcel along the Croatia–Serbia border left in legal limbo due to Danube river straightening. Claimed in 2015 as the "Free Republic of Liberland" by Vít Jedlička[cite: 1], though it fails standard criteria of statehood under the 1933 Montevideo Convention.</dd>
+<dt>🌊 Open Sea & UNCLOS Framework</dt>
+<dd>Governed internationally by the United Nations Convention on the Law of the Sea (UNCLOS). Beyond 200 nautical miles (≈370 km) from baseline coasts lie the High Seas, constituting roughly 43% of Earth's surface (World Economic Forum), dedicated to peaceful uses and common heritage of humankind[cite: 1].</dd>
+<dt>📜 Mare Liberum</dt>
+<dd>Latin for “Free Sea”. Formulated by Dutch jurist Hugo Grotius in 1609, establishing that oceans are international territory open to all nations for trade and navigation[cite: 1].</dd>
+<dt>🚫 Terra Nullius & Historical Critique</dt>
+<dd>Latin for “land belonging to no one”. Historically weaponized during the colonial era to displace indigenous populations by falsely declaring inhabited lands legally vacant. In contemporary international law, true <i>terra nullius</i> is virtually non-existent except for unique anomalies.</dd>
+<dt>🧊 Marie Byrd Land (Antarctica & The Antarctic Treaty System)</dt>
+<dd>Covering over 1.6 million km², this is Earth's largest unclaimed landmass[cite: 1]. Under the 1959 Antarctic Treaty, territorial claims are frozen, dedicating the continent entirely to peaceful scientific cooperation[cite: 1].</dd>
+<dt>🏜️ Bir Tawil (Superimposed Boundary Residual)</dt>
+<dd>A 2,060 km² trapezoidal area along the Egypt–Sudan border created by conflicting colonial maps from 1899 and 1902. Because both nations claim the resource-rich Halaib Triangle[cite: 1], neither claims Bir Tawil, rendering it a modern land anomaly.</dd>
+<dt>🏰 Gornja Siga & Micronationalism</dt>
+<dd>A river-meander parcel along the Croatia–Serbia border left in legal limbo due to Danube river straightening. Claimed in 2015 as the "Free Republic of Liberland" by Vít Jedlička[cite: 1], though it fails standard criteria of statehood under the 1933 Montevideo Convention.</dd>
 </dl>
 </div>
 <div class="note-box">
-  <b>Educational Standard Note:</b> This module bridges political geography, historical cartography, and international jurisprudence (UNCLOS, Montevideo Convention) to help students analyze territorial sovereignty objectively.
+  <b>💡 Educational Standard Note:</b> This module bridges political geography, historical cartography, and international jurisprudence (UNCLOS, Montevideo Convention) to help students analyze territorial sovereignty objectively.
 </div>
 </section>
 
 <section id="sea">
-<div class="card"><h2>Simulation 1: Sail Away from the Coast (Maritime Zones)</h2>
+<div class="card">
+<h2>⚓ Simulation 1: Sail Away from the Coast (Maritime Zones)</h2>
 <p>Drag the slider or <b>click directly anywhere on the ocean graphic below</b> to sail your ship across legal maritime zones instantly!</p>
 <svg id="seaSvg" viewBox="0 0 600 170" role="img" aria-label="Interactive ship sailing area">
-<rect id="zT" x="0" y="0" width="600" height="170" fill="var(--sea-soft)"/>
-<rect x="0" y="0" width="40" height="170" fill="var(--sand)"/>
-<line id="l1" y1="0" y2="170" stroke="var(--sea)" stroke-dasharray="4 4"/>
-<line id="l2" y1="0" y2="170" stroke="var(--buoy)" stroke-dasharray="4 4"/>
-<text x="6" y="20" font-size="13" fill="var(--ink)">Coast</text>
-<text id="t1" y="20" font-size="12" fill="var(--ink)">12 nm</text>
-<text id="t2" y="40" font-size="12" fill="var(--ink)">200 nm</text>
-<g id="ship"><text font-size="34" y="105">🚢</text></g>
+  <defs>
+    <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--sea-soft)"/>
+      <stop offset="100%" stop-color="var(--sea)"/>
+    </linearGradient>
+  </defs>
+  <rect id="zT" x="0" y="0" width="600" height="170" fill="url(#seaGrad)"/>
+  <rect x="0" y="0" width="40" height="170" fill="var(--sand)"/>
+  <path d="M0 140 Q 30 130, 60 140 T 120 140 T 180 140 T 240 140 T 300 140 T 360 140 T 420 140 T 480 140 T 540 140 T 600 140 V 170 H 0 Z" fill="var(--sea)" opacity="0.3">
+    <animate attributeName="d" dur="3s" repeatCount="indefinite" values="M0 140 Q 30 130, 60 140 T 120 140 T 180 140 T 240 140 T 300 140 T 360 140 T 420 140 T 480 140 T 540 140 T 600 140 V 170 H 0 Z; M0 140 Q 30 150, 60 140 T 120 140 T 180 140 T 240 140 T 300 140 T 360 140 T 420 140 T 480 140 T 540 140 T 600 140 V 170 H 0 Z; M0 140 Q 30 130, 60 140 T 120 140 T 180 140 T 240 140 T 300 140 T 360 140 T 420 140 T 480 140 T 540 140 T 600 140 V 170 H 0 Z"/>
+  </path>
+  <line id="l1" y1="0" y2="170" stroke="var(--sea)" stroke-dasharray="6 6" stroke-width="2"/>
+  <line id="l2" y1="0" y2="170" stroke="var(--buoy)" stroke-dasharray="6 6" stroke-width="2"/>
+  <text x="6" y="24" font-size="14" font-weight="bold" fill="var(--ink)">Coast</text>
+  <text id="t1" y="24" font-size="13" font-weight="bold" fill="var(--ink)">12 nm</text>
+  <text id="t2" y="44" font-size="13" font-weight="bold" fill="var(--ink)">200 nm</text>
+  <g id="shipGroup">
+    <g id="ship" class="ship-anim">
+      <text x="0" y="105" font-size="36">🚢</text>
+    </g>
+  </g>
 </svg>
-<div class="interactive-hint">💡 Tip: Click anywhere inside the blue ocean above to move your ship.</div>
+<div class="interactive-hint">💡 Tip: Click anywhere inside the blue ocean above to move your ship instantly!</div>
 <br>
 <label for="dist" class="small">Distance from coast: <b id="dv">0</b> km</label>
 <input id="dist" type="range" min="0" max="500" value="0">
 <div class="readout" id="sea-out" aria-live="polite"></div>
 <div class="note-box">
-  <b>Simulation Note (UNCLOS Reference):</b> 
-  <ul>
+  <b>📖 Simulation Note (UNCLOS Reference):</b> 
+  <ul style="margin: 8px 0 0 20px; padding: 0;">
     <li><b>0–12 nm (Territorial Sea):</b> Coastal states exercise full sovereignty, subject to foreign vessels' right of innocent passage.</li>
     <li><b>12–200 nm (Exclusive Economic Zone / EEZ):</b> Coastal states hold sovereign rights over natural resources (fishing, oil, minerals), while freedom of navigation is protected for all nations.</li>
     <li><b>Beyond 200 nm (High Seas):</b> International waters governed by the principle of common heritage under UNCLOS.</li>
   </ul>
 </div>
-</div></section>
+</div>
+</section>
 
 <section id="bir">
-<div class="card"><h2>Simulation 2: The Bir Tawil Border Puzzle</h2>
+<div class="card">
+<h2>🏜️ Simulation 2: The Bir Tawil Border Puzzle</h2>
 <p><b>Click directly on the map zones below</b> (Halaib Triangle, Bir Tawil, Egypt, or Sudan) to inspect territorial strategies, or use the buttons.</p>
 <svg id="birSvg" viewBox="0 0 400 220" role="img" aria-label="Interactive border map between Egypt and Sudan">
 <rect id="bEg" width="400" height="130" fill="var(--sand)" style="cursor:pointer;" />
 <rect id="bSu" y="130" width="400" height="90" fill="var(--sea-soft)" style="cursor:pointer;" />
-<path id="bt" d="M0 130 L200 130 C150 160 100 190 0 190 Z" fill="var(--buoy)" opacity=".55" style="cursor:pointer;" />
-<path id="hl" d="M200 130 L400 130 L400 70 C300 70 250 100 200 130 Z" fill="var(--sea)" opacity=".55" style="cursor:pointer;" />
+<path id="bt" d="M0 130 L200 130 C150 160 100 190 0 190 Z" fill="var(--buoy)" opacity=".6" style="cursor:pointer;" />
+<path id="hl" d="M200 130 L400 130 L400 70 C300 70 250 100 200 130 Z" fill="var(--sea)" opacity=".6" style="cursor:pointer;" />
 <line id="L99" x1="0" y1="130" x2="400" y2="130" stroke="var(--ink)" stroke-width="3"/>
 <path id="L02" d="M0 190 C100 190 150 160 200 130 C250 100 300 70 400 70" fill="none" stroke="var(--ink)" stroke-width="3" stroke-dasharray="8 5"/>
-<text x="150" y="30" font-size="16" fill="var(--ink)" pointer-events="none">EGYPT (north)</text>
-<text x="150" y="212" font-size="16" fill="var(--ink)" pointer-events="none">SUDAN (south)</text>
-<text x="20" y="150" font-size="12" fill="var(--ink)" pointer-events="none">Bir Tawil</text>
-<text x="300" y="118" font-size="12" fill="var(--ink)" pointer-events="none">Halaib Triangle</text>
+<text x="150" y="30" font-size="16" font-weight="bold" fill="var(--ink)" pointer-events="none">EGYPT (north)</text>
+<text x="150" y="212" font-size="16" font-weight="bold" fill="var(--ink)" pointer-events="none">SUDAN (south)</text>
+<text x="20" y="150" font-size="13" font-weight="bold" fill="var(--ink)" pointer-events="none">Bir Tawil</text>
+<text x="300" y="118" font-size="13" font-weight="bold" fill="var(--ink)" pointer-events="none">Halaib Triangle</text>
 </svg>
 <div class="interactive-hint">💡 Tip: Click on the "Bir Tawil" or "Halaib" highlighted regions on the map to inspect them.</div>
 <div class="btns" role="group" aria-label="Choose a border view">
-<button class="btn sel" data-b="99">1899 Straight Line</button>
-<button class="btn" data-b="02">1902 Administrative Line</button>
-<button class="btn" data-b="now">Geopolitical Outcome</button>
+<button class="btn sel" data-b="99">📏 1899 Straight Line</button>
+<button class="btn" data-b="02">〰️ 1902 Administrative Line</button>
+<button class="btn" data-b="now">🌍 Geopolitical Outcome</button>
 </div>
 <div class="readout" id="bir-out" aria-live="polite"></div>
 <div class="note-box">
-  <b>Simulation Note:</b> This case illustrates the consequence of <i>superimposed boundaries</i> drawn by colonial powers without regard for local demographic or resource dynamics. Claiming Bir Tawil legally forfeits claim to the much larger Halaib Triangle under state practice[cite: 1].
+  <b>📖 Simulation Note:</b> This case illustrates the consequence of <i>superimposed boundaries</i> drawn by colonial powers without regard for local demographic or resource dynamics. Claiming Bir Tawil legally forfeits claim to the much larger Halaib Triangle under state practice[cite: 1].
 </div>
-</div></section>
+</div>
+</section>
 
 <section id="siga">
-<div class="card"><h2>Simulation 3: A River That Moved (Fluvial Boundaries)</h2>
+<div class="card">
+<h2>🌊 Simulation 3: A River That Moved (Fluvial Boundaries)</h2>
 <p><b>Click directly on the Gornja Siga parcel or river sections</b> to toggle and evaluate boundary perspectives interactively.</p>
 <svg id="sigaSvg" viewBox="0 0 300 260" role="img" aria-label="Interactive river border map">
 <rect width="150" height="260" fill="var(--sand)"/>
 <rect x="150" width="150" height="260" fill="var(--sea-soft)"/>
-<path id="parcel" d="M150 60 C120 70 80 90 80 130 C80 170 120 190 150 200 Z" fill="var(--buoy)" opacity=".6" style="cursor:pointer;"/>
+<path id="parcel" d="M150 60 C120 70 80 90 80 130 C80 170 120 190 150 200 Z" fill="var(--buoy)" opacity=".7" style="cursor:pointer;"/>
 <path id="old" d="M150 0 C150 50 80 70 80 130 C80 190 150 210 150 260" fill="none" stroke="var(--ink)" stroke-width="3" stroke-dasharray="7 5" style="cursor:pointer;"/>
-<line id="new" x1="150" y1="0" x2="150" y2="260" stroke="var(--sea)" stroke-width="5" style="cursor:pointer;"/>
-<text x="20" y="25" font-size="14" fill="var(--ink)" pointer-events="none">Croatia</text>
-<text x="215" y="25" font-size="14" fill="var(--ink)" pointer-events="none">Serbia</text>
-<text x="86" y="135" font-size="11" fill="var(--ink)" pointer-events="none">Gornja Siga</text>
+<line id="new" class="river-anim" x1="150" y1="0" x2="150" y2="260" stroke="var(--sea)" stroke-width="6" stroke-dasharray="10 10" style="cursor:pointer;"/>
+<text x="20" y="25" font-size="14" font-weight="bold" fill="var(--ink)" pointer-events="none">Croatia</text>
+<text x="215" y="25" font-size="14" font-weight="bold" fill="var(--ink)" pointer-events="none">Serbia</text>
+<text x="86" y="135" font-size="12" font-weight="bold" fill="var(--ink)" pointer-events="none">Gornja Siga</text>
 </svg>
 <div class="interactive-hint">💡 Tip: Click the Gornja Siga land patch or river line to switch perspective views.</div>
 <div class="btns" role="group" aria-label="Choose border rule">
-<button class="btn sel" data-s="old">Border = Old River Bed</button>
-<button class="btn" data-s="new">Border = Straightened River</button>
+<button class="btn sel" data-s="old">🗺️ Border = Old River Bed</button>
+<button class="btn" data-s="new">📏 Border = Straightened River</button>
 </div>
 <div class="readout" id="siga-out" aria-live="polite"></div>
 <div class="note-box">
-  <b>Simulation Note:</b> International river boundaries typically follow the <i>thalweg</i> (deepest channel). When channels are artificially straightened for navigation, disputes over residual parcels (avulsion vs. accretion) frequently arise.
+  <b>📖 Simulation Note:</b> International river boundaries typically follow the <i>thalweg</i> (deepest channel). When channels are artificially straightened for navigation, disputes over residual parcels (avulsion vs. accretion) frequently arise.
 </div>
-</div></section>
+</div>
+</section>
 
 <section id="work">
-<div class="card"><h2>Part A: Quiz <span class="score" id="sc">0 / 10</span></h2>
-<div id="quiz"></div></div>
-
-<div class="card"><h2>Part B: Match the Terms & Legal Concepts</h2>
-<div id="vocab"></div>
-<div class="btns noprint"><button class="btn primary" id="vcheck">Check Matches</button></div>
-<p id="vres" class="small" aria-live="polite"></p></div>
-
-<div class="card"><h2>Part C: Critical Thinking & Analysis</h2>
-<div class="q"><b>1.</b> Why do nations and international bodies uphold the concept of the open sea (<i>Mare Liberum</i>) rather than dividing oceans among coastal states?<textarea aria-label="Answer 1"></textarea></div>
-<div class="q"><b>2.</b> Explain why the doctrine of <i>terra nullius</i> was historically unjust in colonial contexts, referencing indigenous sovereignty.<textarea aria-label="Answer 2"></textarea></div>
-<div class="q"><b>3.</b> If you were a diplomatic advisor to Egypt or Sudan, how would you evaluate the strategic trade-off between claiming Bir Tawil versus the Halaib Triangle?<textarea aria-label="Answer 3"></textarea></div>
-<div class="q"><b>4.</b> Under the 1959 Antarctic Treaty, territorial claims are frozen[cite: 1]. What economic or environmental triggers could threaten this status in Marie Byrd Land?<textarea aria-label="Answer 4"></textarea></div>
-<div class="q"><b>5.</b> According to the 1933 Montevideo Convention on the Rights and Duties of States, what core criteria does a micronation like Liberland struggle to satisfy?<textarea aria-label="Answer 5"></textarea></div>
-<div class="btns noprint"><button class="btn primary" onclick="window.print()">Print Workbook / Save PDF</button></div>
+<div class="card">
+<h2>🧠 Part A: Quiz <span class="score" id="sc">0 / 10</span></h2>
+<div id="quiz"></div>
 </div>
+
+<div class="card">
+<h2>🔗 Part B: Match the Terms & Legal Concepts</h2>
+<div id="vocab"></div>
+<div class="btns noprint"><button class="btn primary" id="vcheck">✅ Check Matches</button></div>
+<p id="vres" class="small" aria-live="polite"></p>
+</div>
+
+<div class="card">
+<h2>💭 Part C: Critical Thinking & Analysis</h2>
+<div class="q"><b>1.</b> Why do nations and international bodies uphold the concept of the open sea (<i>Mare Liberum</i>) rather than dividing oceans among coastal states?<textarea aria-label="Answer 1" placeholder="Type your thoughtful response here..."></textarea></div>
+<div class="q"><b>2.</b> Explain why the doctrine of <i>terra nullius</i> was historically unjust in colonial contexts, referencing indigenous sovereignty.<textarea aria-label="Answer 2" placeholder="Type your thoughtful response here..."></textarea></div>
+<div class="q"><b>3.</b> If you were a diplomatic advisor to Egypt or Sudan, how would you evaluate the strategic trade-off between claiming Bir Tawil versus the Halaib Triangle?<textarea aria-label="Answer 3" placeholder="Type your thoughtful response here..."></textarea></div>
+<div class="q"><b>4.</b> Under the 1959 Antarctic Treaty, territorial claims are frozen[cite: 1]. What economic or environmental triggers could threaten this status in Marie Byrd Land?<textarea aria-label="Answer 4" placeholder="Type your thoughtful response here..."></textarea></div>
+<div class="q"><b>5.</b> According to the 1933 Montevideo Convention on the Rights and Duties of States, what core criteria does a micronation like Liberland struggle to satisfy?<textarea aria-label="Answer 5" placeholder="Type your thoughtful response here..."></textarea></div>
+<div class="btns noprint"><button class="btn primary" onclick="window.print()">🖨️ Print Workbook / Save PDF</button></div>
+</div>
+</section>
 </main>
 
 <script>
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-// tabs
-$$('.tab').forEach(b=>b.onclick=()=>{$$('.tab').forEach(x=>x.setAttribute('aria-selected',x===b));$$('section').forEach(s=>s.classList.toggle('on',s.id===b.dataset.t));scrollTo(0,0)});
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 
-// sea simulation interactivity
-const px=km=>40+km/500*540;
-const kmToPx=posx=>Math.max(0, Math.min(500, (posx - 40) / 540 * 500));
+// --- Audio System (Web Audio API) ---
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+let isMuted = false;
+
+function playTone(freq, type, duration, delay = 0) {
+  if (isMuted) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
+  gain.gain.setValueAtTime(0.08, audioCtx.currentTime + delay);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + duration);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start(audioCtx.currentTime + delay);
+  osc.stop(audioCtx.currentTime + delay + duration);
+}
+
+function playSound(effect) {
+  if (isMuted) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  
+  switch(effect) {
+    case 'click':
+      playTone(800, 'sine', 0.08);
+      break;
+    case 'correct':
+      playTone(523.25, 'sine', 0.1, 0);   // C5
+      playTone(659.25, 'sine', 0.1, 0.1); // E5
+      playTone(783.99, 'sine', 0.2, 0.2); // G5
+      break;
+    case 'wrong':
+      playTone(200, 'sawtooth', 0.3);
+      break;
+    case 'slide':
+      playTone(400, 'triangle', 0.05);
+      break;
+    case 'win':
+      playTone(523.25, 'sine', 0.1, 0);
+      playTone(659.25, 'sine', 0.1, 0.1);
+      playTone(783.99, 'sine', 0.1, 0.2);
+      playTone(1046.50, 'sine', 0.4, 0.3); // C6
+      break;
+  }
+}
+
+const muteBtn = $('#muteBtn');
+muteBtn.onclick = () => {
+  isMuted = !isMuted;
+  muteBtn.textContent = isMuted ? '🔇' : '🔊';
+  muteBtn.classList.toggle('muted', isMuted);
+  if (!isMuted && audioCtx.state === 'suspended') audioCtx.resume();
+};
+
+// --- Confetti Effect ---
+function spawnConfetti(x, y) {
+  const colors = ['#f97316', '#0ea5e9', '#10b981', '#a855f7', '#eab308'];
+  for (let i = 0; i < 24; i++) {
+    const el = document.createElement('div');
+    el.style.position = 'fixed';
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    el.style.width = '8px';
+    el.style.height = '8px';
+    el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    el.style.pointerEvents = 'none';
+    el.style.zIndex = '9999';
+    document.body.appendChild(el);
+    
+    const angle = Math.random() * Math.PI * 2;
+    const velocity = 3 + Math.random() * 5;
+    const vx = Math.cos(angle) * velocity;
+    const vy = Math.sin(angle) * velocity - 4;
+    
+    let posX = x, posY = y, opacity = 1, rotation = 0;
+    const anim = setInterval(() => {
+      posX += vx;
+      posY += vy + 2.5; // gravity
+      rotation += 10;
+      opacity -= 0.025;
+      el.style.left = posX + 'px';
+      el.style.top = posY + 'px';
+      el.style.opacity = opacity;
+      el.style.transform = `rotate(${rotation}deg)`;
+      if (opacity <= 0) {
+        clearInterval(anim);
+        el.remove();
+      }
+    }, 16);
+  }
+}
+
+// --- Tabs ---
+$$('.tab').forEach(b => b.onclick = () => {
+  playSound('click');
+  $$('.tab').forEach(x => x.setAttribute('aria-selected', x === b));
+  $$('section').forEach(s => s.classList.toggle('on', s.id === b.dataset.t));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// --- Sea Simulation ---
+const px = km => 40 + km / 500 * 540;
+const kmToPx = posx => Math.max(0, Math.min(500, (posx - 40) / 540 * 500));
 
 function updateSea(d) {
   d = Math.round(d);
   $('#dist').value = d;
   $('#dv').textContent = d;
-  const x1=px(22),x2=px(370);
-  $('#l1').setAttribute('x1',x1);$('#l1').setAttribute('x2',x1);$('#l2').setAttribute('x1',x2);$('#l2').setAttribute('x2',x2);
-  $('#t1').setAttribute('x',x1+4);$('#t2').setAttribute('x',Math.min(x2+4,520));
-  $('#ship').setAttribute('transform','translate('+Math.min(px(d),560)+',0)');
+  const x1 = px(22), x2 = px(370);
+  $('#l1').setAttribute('x1', x1); $('#l1').setAttribute('x2', x1);
+  $('#l2').setAttribute('x1', x2); $('#l2').setAttribute('x2', x2);
+  $('#t1').setAttribute('x', x1 + 4);
+  $('#t2').setAttribute('x', Math.min(x2 + 4, 520));
+  $('#shipGroup').setAttribute('transform', 'translate(' + Math.min(px(d), 560) + ',0)');
+  
   let h;
-  if(d<=22)h='<b>Territorial Sea (0–12 nm):</b> Coastal state exercises full sovereignty under UNCLOS regulations.';
-  else if(d<=370)h='<b>Exclusive Economic Zone / EEZ (12–200 nm):</b> Sovereign resource rights for the coastal nation; international freedom of navigation maintained.';
-  else h='<b>High Seas / Open Ocean (>200 nm):</b> Governed by Mare Liberum principles; shared global commons open to all humanity[cite: 1].';
-  $('#sea-out').innerHTML=h;
+  if (d <= 22) h = '<b>⚓ Territorial Sea (0–12 nm):</b> Coastal state exercises full sovereignty under UNCLOS regulations.';
+  else if (d <= 370) h = '<b>🐟 Exclusive Economic Zone / EEZ (12–200 nm):</b> Sovereign resource rights for the coastal nation; international freedom of navigation maintained.';
+  else h = '<b>🌍 High Seas / Open Ocean (>200 nm):</b> Governed by Mare Liberum principles; shared global commons open to all humanity[cite: 1].';
+  $('#sea-out').innerHTML = h;
 }
 
-$('#dist').oninput=e=>updateSea(e.target.value);
-$('#seaSvg').onclick=e=>{
+let lastSliderVal = 0;
+$('#dist').oninput = e => {
+  const val = e.target.value;
+  if (Math.abs(val - lastSliderVal) > 5) {
+    playSound('slide');
+    lastSliderVal = val;
+  }
+  updateSea(val);
+};
+
+$('#seaSvg').onclick = e => {
   const rect = e.currentTarget.getBoundingClientRect();
   const clickX = e.clientX - rect.left;
-  // scale clickX to SVG viewBox width 600
   const svgX = clickX * (600 / rect.width);
-  if(svgX >= 40) {
+  if (svgX >= 40) {
     const km = kmToPx(svgX);
     updateSea(km);
+    playSound('click');
   }
 };
 updateSea(0);
 
-// bir tawil simulation interactivity
-const BI={
-'99':'<b>1899 Treaty Line:</b> Straight boundary placing the Halaib Triangle under Egyptian administration and Bir Tawil under Sudan.',
-'02':'<b>1902 Administrative Line:</b> Curved boundary placing Halaib under Sudanese administration and Bir Tawil under Egypt.',
-'now':'<b>Geopolitical Stalemate:</b> Both nations claim Halaib using whichever treaty line favors them[cite: 1]. Because claiming Bir Tawil would legally invalidate their claim to Halaib, both disown Bir Tawil, leaving it unadministered terra nullius[cite: 1].'};
+// --- Bir Tawil Simulation ---
+const BI = {
+  '99': '<b>📏 1899 Treaty Line:</b> Straight boundary placing the Halaib Triangle under Egyptian administration and Bir Tawil under Sudan.',
+  '02': '<b>〰️ 1902 Administrative Line:</b> Curved boundary placing Halaib under Sudanese administration and Bir Tawil under Egypt.',
+  'now': '<b>🌍 Geopolitical Stalemate:</b> Both nations claim Halaib using whichever treaty line favors them[cite: 1]. Because claiming Bir Tawil would legally invalidate their claim to Halaib, both disown Bir Tawil, leaving it unadministered terra nullius[cite: 1].'
+};
 
-function bir(k){
-  $$('[data-b]').forEach(b=>b.classList.toggle('sel',b.dataset.b===k));
-  $('#L99').style.opacity=k==='02'?.25:1;$('#L02').style.opacity=k==='99'?.25:1;
-  $('#bt').style.opacity=k==='now'?.9:.55;$('#hl').style.opacity=k==='now'?.25:.55;
-  $('#bir-out').innerHTML=BI[k];
+function bir(k) {
+  playSound('click');
+  $$('[data-b]').forEach(b => b.classList.toggle('sel', b.dataset.b === k));
+  $('#L99').style.opacity = k === '02' ? .25 : 1;
+  $('#L02').style.opacity = k === '99' ? .25 : 1;
+  $('#bt').style.opacity = k === 'now' ? .9 : .55;
+  $('#hl').style.opacity = k === 'now' ? .25 : .55;
+  $('#bir-out').innerHTML = BI[k];
 }
-$$('[data-b]').forEach(b=>b.onclick=()=>bir(b.dataset.b));
-
-$('#bt').onclick = ()=>bir('now');
-$('#hl').onclick = ()=>bir('99');
-$('#bEg').onclick = ()=>bir('99');
-$('#bSu').onclick = ()=>bir('02');
+$$('[data-b]').forEach(b => b.onclick = () => bir(b.dataset.b));
+$('#bt').onclick = () => bir('now');
+$('#hl').onclick = () => bir('99');
+$('#bEg').onclick = () => bir('99');
+$('#bSu').onclick = () => bir('02');
 bir('99');
 
-// siga simulation interactivity
-const sigaData={
-old:'<b>Old River Bed Baseline (Croatia’s perspective):</b> Maintains historical cadastral parcels established before the Danube engineering projects.',
-new:'<b>Straightened Channel Baseline (Serbia’s perspective):</b> Aligns borders strictly with the modern navigable thalweg, leaving Gornja Siga outside Serbian administration.'};
+// --- Siga Simulation ---
+const sigaData = {
+  old: '<b>🗺️ Old River Bed Baseline (Croatia’s perspective):</b> Maintains historical cadastral parcels established before the Danube engineering projects.',
+  new: '<b>📏 Straightened Channel Baseline (Serbia’s perspective):</b> Aligns borders strictly with the modern navigable thalweg, leaving Gornja Siga outside Serbian administration.'
+};
 
-function siga(k){
-  $$('[data-s]').forEach(b=>b.classList.toggle('sel',b.dataset.s===k));
-  $('#old').style.opacity=k==='old'?1:.25;$('#new').style.opacity=k==='new'?1:.25;
-  $('#siga-out').innerHTML=sigaData[k];
+function siga(k) {
+  playSound('click');
+  $$('[data-s]').forEach(b => b.classList.toggle('sel', b.dataset.s === k));
+  $('#old').style.opacity = k === 'old' ? 1 : .25;
+  $('#new').style.opacity = k === 'new' ? 1 : .25;
+  $('#siga-out').innerHTML = sigaData[k];
 }
-$$('[data-s]').forEach(b=>b.onclick=()=>siga(b.dataset.s));
-$('#parcel').onclick = ()=>siga('old');
-$('#old').onclick = ()=>siga('old');
-$('#new').onclick = ()=>siga('new');
+$$('[data-s]').forEach(b => b.onclick = () => siga(b.dataset.s));
+$('#parcel').onclick = () => siga('old');
+$('#old').onclick = () => siga('old');
+$('#new').onclick = () => siga('new');
 siga('old');
 
-// quiz
-const Q=[
-['Which legal term describes land that no recognized sovereign state claims?',['Mare Liberum','Terra nullius','Sovereign domain','Cession'],1,'Terra nullius denotes land legally unclaimed by any recognized government.'],
-['Who authored "Mare Liberum" (1609), defending freedom of the seas?',['Hugo Grotius[cite: 1]','Vít Jedlička','Richard Byrd','Sir Arthur Evans'],0,'Dutch jurist Hugo Grotius established the legal foundation for international waters[cite: 1].'],
-['Under UNCLOS, what is the outer limit of a coastal nation’s Exclusive Economic Zone (EEZ)?',['12 nautical miles','50 nautical miles','200 nautical miles (≈370 km)','500 nautical miles'],2,'The EEZ extends up to 200 nautical miles from baseline coasts.'],
-['Approximately what percentage of Earth’s surface consists of international waters?',['10%','25%','43%[cite: 1]','75%'],2,'World Economic Forum data indicates international waters cover about 43% of the globe[cite: 1].'],
-['Which large region in Antarctica remains the largest unclaimed territory on Earth?',['Marie Byrd Land[cite: 1]','Queen Maud Land','Adélie Land','Ross Dependency'],0,'Marie Byrd Land spans over 1.6 million square kilometers without formal state claims[cite: 1].'],
-['What was the primary purpose of the Antarctic Treaty signed in 1959?',['Resource extraction','Military testing','Peaceful scientific cooperation[cite: 1]','Fisheries regulation'],2,'The treaty sets aside the continent exclusively for peace and science[cite: 1].'],
-['Why do Egypt and Sudan both decline to claim Bir Tawil?',['It is entirely submerged underwater','Doing so would compromise their claims to the Halaib Triangle[cite: 1]','The United Nations forbids land expansion','The soil cannot support life'],1,'Claiming Bir Tawil contradicts their legal arguments for the more valuable Halaib Triangle[cite: 1].'],
-['Gornja Siga is situated along a disputed river border between which two European nations?',['France and Germany','Croatia and Serbia[cite: 1]','Romania and Bulgaria','Hungary and Slovakia'],1,'It is located along the Danube river floodplain between Croatia and Serbia[cite: 1].'],
-['What key international requirement do micronations like Liberland fail to satisfy?',['Population growth','Permanent population and effective government recognition[cite: 1]','Access to freshwater','Membership in the Universal Postal Union'],1,'Under the Montevideo Convention, statehood requires permanent population, defined territory, government, and capacity to enter relations[cite: 1].'],
-['Why does Marie Byrd Land remain unclaimed despite modern exploration?',['Extreme remoteness and deep ice cover[cite: 1]','Prohibition by the World Bank','Lack of mineral deposits','Hostile indigenous populations'],0,'Its extreme isolation and ice sheets have kept nations from pursuing formal sovereignty claims[cite: 1].']];
-let score=0,done=0;
-$('#quiz').innerHTML=Q.map((q,i)=>`<div class="q"><b>${i+1}. ${q[0]}</b>${q[1].map((o,j)=>`<button class="opt" data-q="${i}" data-o="${j}">${o}</button>`).join('')}<p class="fb" id="fb${i}"></p></div>`).join('');
-$$('.opt').forEach(b=>b.onclick=()=>{const i=+b.dataset.q,j=+b.dataset.o;if($$(`[data-q="${i}"]`)[0].disabled)return;
- const ok=j===Q[i][2];$$(`[data-q="${i}"]`).forEach(x=>{x.disabled=true;if(+x.dataset.o===Q[i][2])x.classList.add('right')});
- if(!ok)b.classList.add('wrong');else score++;done++;
- $('#fb'+i).textContent=(ok?'Correct. ':'Not quite. ')+Q[i][3];$('#sc').textContent=score+' / 10'});
-
-// vocab
-const V=[
-  ['Terra nullius','Land that no recognized country owns or claims[cite: 1]'],
-  ['High seas','Ocean beyond national jurisdiction, shared as global commons[cite: 1]'],
-  ['Mare Liberum','Legal doctrine establishing that oceans cannot be privately owned[cite: 1]'],
-  ['Antarctic Treaty','1959 treaty reserving an entire continent for peace and science[cite: 1]'],
-  ['Montevideo Convention','1933 treaty defining the standard criteria for statehood'],
-  ['Halaib Triangle','Disputed border region claimed by both Egypt and Sudan[cite: 1]']
+// --- Quiz ---
+const Q = [
+  ['Which legal term describes land that no recognized sovereign state claims?', ['Mare Liberum', 'Terra nullius', 'Sovereign domain', 'Cession'], 1, 'Terra nullius denotes land legally unclaimed by any recognized government.'],
+  ['Who authored "Mare Liberum" (1609), defending freedom of the seas?', ['Hugo Grotius[cite: 1]', 'Vít Jedlička', 'Richard Byrd', 'Sir Arthur Evans'], 0, 'Dutch jurist Hugo Grotius established the legal foundation for international waters[cite: 1].'],
+  ['Under UNCLOS, what is the outer limit of a coastal nation’s Exclusive Economic Zone (EEZ)?', ['12 nautical miles', '50 nautical miles', '200 nautical miles (≈370 km)', '500 nautical miles'], 2, 'The EEZ extends up to 200 nautical miles from baseline coasts.'],
+  ['Approximately what percentage of Earth’s surface consists of international waters?', ['10%', '25%', '43%[cite: 1]', '75%'], 2, 'World Economic Forum data indicates international waters cover about 43% of the globe[cite: 1].'],
+  ['Which large region in Antarctica remains the largest unclaimed territory on Earth?', ['Marie Byrd Land[cite: 1]', 'Queen Maud Land', 'Adélie Land', 'Ross Dependency'], 0, 'Marie Byrd Land spans over 1.6 million square kilometers without formal state claims[cite: 1].'],
+  ['What was the primary purpose of the Antarctic Treaty signed in 1959?', ['Resource extraction', 'Military testing', 'Peaceful scientific cooperation[cite: 1]', 'Fisheries regulation'], 2, 'The treaty sets aside the continent exclusively for peace and science[cite: 1].'],
+  ['Why do Egypt and Sudan both decline to claim Bir Tawil?', ['It is entirely submerged underwater', 'Doing so would compromise their claims to the Halaib Triangle[cite: 1]', 'The United Nations forbids land expansion', 'The soil cannot support life'], 1, 'Claiming Bir Tawil contradicts their legal arguments for the more valuable Halaib Triangle[cite: 1].'],
+  ['Gornja Siga is situated along a disputed river border between which two European nations?', ['France and Germany', 'Croatia and Serbia[cite: 1]', 'Romania and Bulgaria', 'Hungary and Slovakia'], 1, 'It is located along the Danube river floodplain between Croatia and Serbia[cite: 1].'],
+  ['What key international requirement do micronations like Liberland fail to satisfy?', ['Population growth', 'Permanent population and effective government recognition[cite: 1]', 'Access to freshwater', 'Membership in the Universal Postal Union'], 1, 'Under the Montevideo Convention, statehood requires permanent population, defined territory, government, and capacity to enter relations[cite: 1].'],
+  ['Why does Marie Byrd Land remain unclaimed despite modern exploration?', ['Extreme remoteness and deep ice cover[cite: 1]', 'Prohibition by the World Bank', 'Lack of mineral deposits', 'Hostile indigenous populations'], 0, 'Its extreme isolation and ice sheets have kept nations from pursuing formal sovereignty claims[cite: 1].']
 ];
-const defs=V.map(v=>v[1]).sort((a,b)=>a.localeCompare(b));
-$('#vocab').innerHTML=V.map((v,i)=>`<div class="vrow"><b>${v[0]}</b><select aria-label="Meaning of ${v[0]}" data-v="${i}"><option value="">Choose legal definition…</option>${defs.map(d=>`<option>${d}</option>`).join('')}</select></div>`).join('');
-$('#vcheck').onclick=()=>{let c=0;$$('[data-v]').forEach(s=>{const ok=s.value===V[+s.dataset.v][1];if(ok)c++;s.style.borderColor=ok?'var(--ok)':'var(--bad)'});$('#vres').textContent=c+' of '+V.length+' correct. Review highlighted terms and re-verify.'};
+
+let score = 0, done = 0;
+$('#quiz').innerHTML = Q.map((q, i) => `<div class="q"><b>${i + 1}. ${q[0]}</b>${q[1].map((o, j) => `<button class="opt" data-q="${i}" data-o="${j}">${o}</button>`).join('')}<p class="fb" id="fb${i}"></p></div>`).join('');
+
+$$('.opt').forEach(b => b.onclick = (e) => {
+  const i = +b.dataset.q, j = +b.dataset.o;
+  if ($$(`[data-q="${i}"]`)[0].disabled) return;
+  const ok = j === Q[i][2];
+  
+  $$(`[data-q="${i}"]`).forEach(x => {
+    x.disabled = true;
+    if (+x.dataset.o === Q[i][2]) x.classList.add('right');
+  });
+  
+  if (!ok) {
+    b.classList.add('wrong');
+    b.style.animation = 'shake 0.4s ease-in-out';
+    playSound('wrong');
+  } else {
+    score++;
+    b.style.animation = 'pop 0.4s ease-in-out';
+    playSound('correct');
+    spawnConfetti(e.clientX, e.clientY);
+  }
+  
+  done++;
+  $('#fb' + i).innerHTML = (ok ? '✅ <b>Correct!</b> ' : '❌ <b>Not quite.</b> ') + Q[i][3];
+  $('#sc').textContent = score + ' / 10';
+  
+  if (done === 10) {
+    setTimeout(() => {
+      playSound('win');
+      for (let k = 0; k < 5; k++) {
+        setTimeout(() => spawnConfetti(window.innerWidth / 2 + (Math.random() - 0.5) * 300, window.innerHeight / 2), k * 150);
+      }
+    }, 600);
+  }
+});
+
+// --- Vocab Matching ---
+const V = [
+  ['Terra nullius', 'Land that no recognized country owns or claims[cite: 1]'],
+  ['High seas', 'Ocean beyond national jurisdiction, shared as global commons[cite: 1]'],
+  ['Mare Liberum', 'Legal doctrine establishing that oceans cannot be privately owned[cite: 1]'],
+  ['Antarctic Treaty', '1959 treaty reserving an entire continent for peace and science[cite: 1]'],
+  ['Montevideo Convention', '1933 treaty defining the standard criteria for statehood'],
+  ['Halaib Triangle', 'Disputed border region claimed by both Egypt and Sudan[cite: 1]']
+];
+const defs = V.map(v => v[1]).sort((a, b) => a.localeCompare(b));
+$('#vocab').innerHTML = V.map((v, i) => `<div class="vrow"><b>${v[0]}</b><select aria-label="Meaning of ${v[0]}" data-v="${i}"><option value="">Choose legal definition…</option>${defs.map(d => `<option>${d}</option>`).join('')}</select></div>`).join('');
+
+$('#vcheck').onclick = () => {
+  let c = 0;
+  $$('[data-v]').forEach(s => {
+    const ok = s.value === V[+s.dataset.v][1];
+    if (ok) c++;
+    s.style.borderColor = ok ? 'var(--ok)' : 'var(--bad)';
+    s.style.backgroundColor = ok ? 'color-mix(in srgb, var(--ok) 10%, transparent)' : 'color-mix(in srgb, var(--bad) 10%, transparent)';
+  });
+  $('#vres').innerHTML = c === V.length 
+    ? '🎉 <b>Perfect!</b> All matches are correct.' 
+    : `<b>${c} of ${V.length} correct.</b> Review highlighted terms and try again!`;
+  playSound(c === V.length ? 'win' : 'click');
+};
 </script>
 </body>
 </html>
