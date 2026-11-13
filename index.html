@@ -1,1 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whose Land Is It? | TM Bhinder Interactive Lab</title>
+    <style>
+        /* =========================================
+           1. CSS VARIABLES & GLOBAL RESET
+           ========================================= */
+        :root {
+            --primary: #4361EE;
+            --primary-dark: #3A0CA3;
+            --secondary: #F72585;
+            --accent: #4CC9F0;
+            --sand: #F4A261;
+            --deep-sea: #03045E;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --text-main: #2B2D42;
+            --text-light: #8D99AE;
+            --success: #06D6A0;
+            --danger: #EF476F;
+            --radius: 20px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Accessibility: Reduce Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* =========================================
+           2. HEADER & BACKGROUND ANIMATIONS
+           ========================================= */
+        header {
+            position: relative;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--accent));
+            color: white;
+            padding: 4rem 1rem 6rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Animated Background Blobs (GIF alternative) */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.5;
+            animation: floatBlob 15s infinite alternate ease-in-out;
+        }
+        .blob-1 { width: 300px; height: 300px; background: var(--secondary); top: -50px; left: -50px; }
+        .blob-2 { width: 400px; height: 400px; background: var(--accent); bottom: -100px; right: -100px; animation-delay: -5s; }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, -30px) scale(1.1); }
+        }
+
+        header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =========================================
+           3. MAIN CONTAINER & GLASS CARDS
+           ========================================= */
+        .container {
+            max-width: 1000px;
+            margin: -4rem auto 3rem; /* Pull up into header */
+            padding: 0 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: var(--transition);
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.12); }
+
+        .card h2 {
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .card h2 .icon {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            width: 45px; height: 45px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 12px;
+            color: white;
+        }
+
+        /* =========================================
+           4. GLOSSARY (ACCORDION)
+           ========================================= */
+        details {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            border: 1px solid #eee;
+            overflow: hidden;
+        }
+        summary {
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            transition: background 0.2s;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+        details[open] summary::after { transform: rotate(45deg); }
+        details[open] summary { background: #f8f9fa; border-bottom: 1px solid #eee; }
+        details div { padding: 1.5rem; color: var(--text-light); }
+
+        /* =========================================
+           5. SIMULATIONS (THE "GIF" ANIMATIONS)
+           ========================================= */
+        .sim-stage {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        /* SIM 1: OCEAN */
+        .ocean-scene {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            background: linear-gradient(to bottom, #87CEEB 0%, #4682B4 40%, #000080 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: background 1s ease;
+        }
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 40%;
+            bottom: -50px;
+            left: -50%;
+            animation: waveAnim 8s linear infinite;
+        }
+        .wave:nth-child(2) {
+            bottom: -60px;
+            background: rgba(255, 255, 255, 0.15);
+            animation: waveAnim 12s linear infinite reverse;
+        }
+        @keyframes waveAnim {
+            0% { transform: translateX(0) rotate(0deg); }
+            100% { transform: translateX(50%) rotate(360deg); }
+        }
+        .ship-container {
+            position: absolute;
+            bottom: 60px;
+            transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: shipFloat 3s ease-in-out infinite;
+            font-size: 3rem;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
+        }
+        @keyframes shipFloat {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+        
+        /* Deep sea creatures (appear at >200nm) */
+        .creature {
+            position: absolute;
+            bottom: 20px;
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 1s;
+            animation: swim 10s linear infinite;
+        }
+        .creature.active { opacity: 1; }
+        @keyframes swim {
+            0% { transform: translateX(-50px); }
+            100% { transform: translateX(calc(100vw + 50px)); }
+        }
+
+        /* SIM 2: BIR TAWIL */
+        .map-container {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+        .map-svg { width: 100%; height: auto; }
+        .border-path {
+            fill: none;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: all 0.8s ease;
+        }
+        .border-path.draw { stroke-dashoffset: 0; }
+        .highlight-zone {
+            transition: all 0.5s;
+            opacity: 0.4;
+        }
+        .highlight-zone.active {
+            opacity: 1;
+            filter: drop-shadow(0 0 10px currentColor);
+            animation: pulseZone 2s infinite;
+        }
+        @keyframes pulseZone {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* SIM 3: RIVER */
+        .river-svg { width: 100%; height: auto; }
+        .water-flow {
+            stroke-dasharray: 15, 10;
+            animation: flowAnim 2s linear infinite;
+        }
+        @keyframes flowAnim {
+            to { stroke-dashoffset: -50; }
+        }
+        .pocket-land {
+            transition: all 0.8s;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        .pocket-land.visible {
+            opacity: 1;
+            transform: scale(1);
+            animation: shakeLand 0.5s ease;
+        }
+        @keyframes shakeLand {
+            0%, 100% { transform: scale(1) rotate(0); }
+            25% { transform: scale(1.1) rotate(-2deg); }
+            75% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        /* =========================================
+           6. CONTROLS & BUTTONS
+           ========================================= */
+        .slider-container {
+            width: 100%;
+            margin-top: 1.5rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            transition: background 0.3s;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(67, 97, 238, 0.5);
+            transition: transform 0.2s;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+        .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;}
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+        .btn:active { transform: scale(0.95); }
+        .btn-egypt { background: linear-gradient(135deg, #e63946, #d90429); color: white; }
+        .btn-sudan { background: linear-gradient(135deg, #2a9d8f, #264653); color: white; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-outline.active { background: var(--primary); color: white; }
+
+        .info-panel {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-left: 5px solid var(--primary);
+            border-radius: 8px;
+            font-weight: 500;
+            display: none;
+            animation: slideIn 0.4s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================
+           7. WORKBOOK & QUIZ
+           ========================================= */
+        .quiz-question {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid #eee;
+            transition: var(--transition);
+        }
+        .quiz-question p { font-weight: 600; margin-bottom: 0.8rem; font-size: 1.05rem; }
+        .quiz-options label {
+            display: block;
+            padding: 0.8rem 1rem;
+            margin: 0.4rem 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            background: #f8f9fa;
+        }
+        .quiz-options label:hover { background: #e9ecef; border-color: #dee2e6; }
+        .quiz-options input { margin-right: 0.8rem; accent-color: var(--primary); }
+        
+        .correct { background: #d4edda !important; border-color: var(--success) !important; color: #155724; }
+        .incorrect { background: #f8d7da !important; border-color: var(--danger) !important; color: #721c24; }
+
+        .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+        .match-item {
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid #eee;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .match-item:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .match-item.selected { border-color: var(--primary); background: #e0e7ff; transform: scale(1.02); }
+        .match-item.matched { background: #d1fae5; border-color: var(--success); cursor: default; opacity: 0.8; }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border-color 0.3s;
+            background: #fcfcfc;
+        }
+        textarea:focus { outline: none; border-color: var(--primary); background: white; }
+
+        .status-msg {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            font-weight: 700;
+            display: none;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .footer-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        /* =========================================
+           8. RESPONSIVE & PRINT
+           ========================================= */
+        @media (max-width: 600px) {
+            .card { padding: 1.5rem; }
+            .match-grid { grid-template-columns: 1fr; }
+            header { padding: 3rem 1rem 5rem; }
+        }
+
+        @media print {
+            body { background: white; }
+            header { background: white; color: black; padding: 1rem; }
+            .blob, .wave, .ship-container, .creature { display: none; }
+            .card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+            .btn, .footer-actions, input[type="range"], .sim-stage { display: none !important; }
+            .info-panel, details { display: block !important; }
+            details div { display: block !important; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <h1>🌍 Whose Land Is It?</h1>
+    <p>Explore the world's most mysterious unclaimed territories.</p>
+    <div class="badge">TM Bhinder Interactive Lab | Grades 5-8</div>
+</header>
+
+<main class="container">
+
+    <!-- THE BIG PICTURE -->
+    <section class="card" aria-labelledby="big-picture-title">
+        <h2 id="big-picture-title"><span class="icon">📖</span> The Big Picture</h2>
+        <p style="margin-bottom: 1.5rem; color: var(--text-light);">Tap the terms below to unlock the key ideas from our BBC News Urdu feature.</p>
+        
+        <details>
+            <summary>🌊 Open Sea & Mare Liberum</summary>
+            <div>
+                <p><strong>Open Sea:</strong> Beyond 200 nautical miles (≈370 km) from a coast, the sea is shared by all humanity. About 43% of Earth’s surface is international waters.</p>
+                <p><strong>Mare Liberum:</strong> Latin for "Free sea". In the 17th century, Hugo Grotius argued the sea is too vast to be owned by one country.</p>
+            </div>
+        </details>
+        <details>
+            <summary>🏜️ Terra Nullius</summary>
+            <div>
+                <p>Latin for "land of no one". Today, it means land no recognised state owns. Historically, colonial powers misused this idea, calling inhabited lands "empty" to take them over unfairly.</p>
+            </div>
+        </details>
+        <details>
+            <summary>🐧 Marie Byrd Land, Antarctica</summary>
+            <div>
+                <p>Over 1.6 million km², the largest unclaimed area on Earth. The Antarctic Treaty (1959) set the continent aside for peace and science. It's so remote nobody has bothered to claim it!</p>
+            </div>
+        </details>
+        <details>
+            <summary>🇪🇬 Bir Tawil (Egypt-Sudan Border)</summary>
+            <div>
+                <p>Britain drew two different borders (1899 and 1902). Both Egypt and Sudan want the valuable Halaib Triangle, so they each pick the border line that gives it to them. As a result, neither claims the useless Bir Tawil desert!</p>
+            </div>
+        </details>
+        <details>
+            <summary>🚩 Liberland & Gornja Siga</summary>
+            <div>
+                <p><strong>Gornja Siga:</strong> A small patch between Croatia and Serbia, left over after the Danube river was straightened.</p>
+                <p><strong>Liberland:</strong> A "micronation" founded in 2015 by Vít Jedlička. No official country recognises it.</p>
+            </div>
+        </details>
+    </section>
+
+    <!-- SIMULATION 1: OCEAN -->
+    <section class="card" aria-labelledby="sim1-title">
+        <h2 id="sim1-title"><span class="icon">🚢</span> Sim 1: Sail Away from the Coast</h2>
+        <p>Drag the slider to sail your ship. Watch the ocean change and the rules shift!</p>
+        <div class="sim-stage" style="padding: 0; background: transparent;">
+            <div class="ocean-scene" id="oceanScene">
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="ship-container" id="ship" style="left: 10%;">⛴️</div>
+                <div class="creature" id="creature1" style="left: 20%; bottom: 30px;">🦑</div>
+                <div class="creature" id="creature2" style="left: 60%; bottom: 10px; animation-delay: -5s;">🐋</div>
+            </div>
+            <div class="slider-container">
+                <div style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 0.5rem;">
+                    <span>Coast</span>
+                    <span>12 nm</span>
+                    <span>200 nm</span>
+                    <span>Deep Sea</span>
+                </div>
+                <input type="range" id="distanceSlider" min="0" max="400" value="0" aria-label="Distance from coast in nautical miles">
+                <div style="text-align: center; margin-top: 1rem;">
+                    <strong>Distance:</strong> <span id="distanceText">0</span> nm (≈ <span id="kmText">0</span> km)
+                </div>
+            </div>
+        </div>
+        <div class="info-panel" id="rulePanel" style="display: block;">
+            <strong>📜 Current Rule:</strong> <span id="ruleText">The coastal country fully owns the water and seabed.</span>
+        </div>
+    </section>
+
+    <!-- SIMULATION 2: BIR TAWIL -->
+    <section class="card" aria-labelledby="sim2-title">
+        <h2 id="sim2-title"><span class="icon">🗺️</span> Sim 2: The Bir Tawil Puzzle</h2>
+        <p>Britain drew two borders. Click a country to see their strategy. Who gets the good land?</p>
+        <div class="sim-stage" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+            <div class="map-container">
+                <svg class="map-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Egypt -->
+                    <rect x="0" y="0" width="400" height="150" fill="#f4a261" opacity="0.4"/>
+                    <text x="200" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#e76f51">EGYPT</text>
+                    <!-- Sudan -->
+                    <rect x="0" y="150" width="400" height="150" fill="#2a9d8f" opacity="0.4"/>
+                    <text x="200" y="280" text-anchor="middle" font-size="24" font-weight="bold" fill="#264653">SUDAN</text>
+                    
+                    <!-- Halaib Triangle -->
+                    <polygon id="halaib" class="highlight-zone" points="250,150 350,150 300,210" fill="#e9c46a" stroke="#e76f51" stroke-width="2" style="color: #e76f51;"/>
+                    <text x="300" y="185" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">Halaib</text>
+                    
+                    <!-- Bir Tawil -->
+                    <polygon id="birtawil" class="highlight-zone" points="150,150 200,150 180,210" fill="#e9c46a" stroke="#264653" stroke-width="2" style="color: #264653;"/>
+                    <text x="175" y="185" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">Bir Tawil</text>
+
+                    <!-- 1899 Line (Straight) -->
+                    <path id="line1899" class="border-path" d="M 0 150 L 400 150" stroke="#e63946" />
+                    
+                    <!-- 1902 Line (Curved) -->
+                    <path id="line1902" class="border-path" d="M 0 150 Q 100 190, 200 150 T 400 150" stroke="#2a9d8f" />
+                </svg>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn btn-egypt" onclick="showBorder('egypt')" aria-label="Show Egypt's choice">🇪🇬 Egypt's Choice (1899)</button>
+                <button class="btn btn-sudan" onclick="showBorder('sudan')" aria-label="Show Sudan's choice">🇸🇩 Sudan's Choice (1902)</button>
+            </div>
+        </div>
+        <div class="info-panel" id="outcomeBox"></div>
+    </section>
+
+    <!-- SIMULATION 3: RIVER -->
+    <section class="card" aria-labelledby="sim3-title">
+        <h2 id="sim3-title"><span class="icon">🌊</span> Sim 3: A River That Moved</h2>
+        <p>The Danube was straightened for ships. Toggle the view to see how this created a "no man's land".</p>
+        <div class="sim-stage" style="background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);">
+            <div class="map-container">
+                <svg class="river-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Croatia -->
+                    <rect x="0" y="0" width="400" height="100" fill="#ffffff" opacity="0.6"/>
+                    <text x="30" y="40" font-size="18" font-weight="bold" fill="#495057">CROATIA</text>
+                    <!-- Serbia -->
+                    <rect x="0" y="100" width="400" height="100" fill="#f8f9fa" opacity="0.6"/>
+                    <text x="30" y="170" font-size="18" font-weight="bold" fill="#495057">SERBIA</text>
+                    
+                    <!-- Old River (Winding) -->
+                    <path id="riverOld" class="water-flow" d="M 0 100 Q 100 50, 200 100 T 400 100" stroke="#0077be" stroke-width="12" fill="none" opacity="0.8" stroke-linecap="round"/>
+                    
+                    <!-- New River (Straight) -->
+                    <path id="riverNew" class="water-flow" d="M 0 100 L 400 100" stroke="#00b4d8" stroke-width="12" fill="none" opacity="0" stroke-linecap="round"/>
+                    
+                    <!-- Gornja Siga Pocket -->
+                    <path id="gornjaSiga" class="pocket-land" d="M 200 100 Q 220 140, 260 100 Z" fill="#ef476f" stroke="#9d0208" stroke-width="2"/>
+                    <text id="sigaLabel" class="pocket-land" x="230" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Gornja Siga</text>
+                </svg>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-outline active" id="btnOld" onclick="showRiver('old')">Old Winding River</button>
+                <button class="btn btn-outline" id="btnNew" onclick="showRiver('new')">Straightened River</button>
+            </div>
+        </div>
+        <div class="info-panel" id="riverDesc" style="display: block;">
+            The border follows the old winding river bed. Both countries are happy.
+        </div>
+    </section>
+
+    <!-- WORKBOOK -->
+    <section class="card" aria-labelledby="wb-title">
+        <h2 id="wb-title"><span class="icon">📝</span> Interactive Workbook</h2>
+        <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1.5rem;">🔒 <strong>Privacy First:</strong> Your answers are saved automatically on this device. No login required!</p>
+        
+        <!-- Part A: Quiz -->
+        <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">Part A: Quick Quiz (<span id="scoreDisplay">0</span> / 10)</h3>
+        <div id="quizContainer"></div>
+        <button class="btn btn-primary" onclick="checkQuiz()" style="width: 100%; justify-content: center;">✨ Check My Answers</button>
+        <div class="status-msg" id="quizStatus"></div>
+
+        <hr style="margin: 2.5rem 0; border: 0; border-top: 1px solid #eee;">
+
+        <!-- Part B: Matching -->
+        <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">Part B: Match the Words</h3>
+        <p style="margin-bottom: 1rem;">Click a term on the left, then click its matching definition on the right.</p>
+        <div class="match-grid" id="matchGrid"></div>
+        <div class="status-msg" id="matchStatus"></div>
+
+        <hr style="margin: 2.5rem 0; border: 0; border-top: 1px solid #eee;">
+
+        <!-- Part C: Think and Write -->
+        <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">Part C: Think and Write</h3>
+        <p style="margin-bottom: 1.5rem;">Take your time. Your text saves automatically as you type.</p>
+        <div style="margin-bottom: 1.5rem;">
+            <p style="font-weight: 600; margin-bottom: 0.5rem;">1. Why do you think no country claims the open sea? Use the idea of Mare Liberum.</p>
+            <textarea id="q1" placeholder="Type your answer here..." aria-label="Answer for question 1"></textarea>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+            <p style="font-weight: 600; margin-bottom: 0.5rem;">2. Why was "terra nullius" an unfair idea in colonial times? Give one example.</p>
+            <textarea id="q2" placeholder="Type your answer here..." aria-label="Answer for question 2"></textarea>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+            <p style="font-weight: 600; margin-bottom: 0.5rem;">3. If you were Egypt’s or Sudan’s foreign minister, would you claim Bir Tawil? Explain your trade-off.</p>
+            <textarea id="q3" placeholder="Type your answer here..." aria-label="Answer for question 3"></textarea>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+            <p style="font-weight: 600; margin-bottom: 0.5rem;">4. Marie Byrd Land could become disputed if something valuable is found. Why?</p>
+            <textarea id="q4" placeholder="Type your answer here..." aria-label="Answer for question 4"></textarea>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+            <p style="font-weight: 600; margin-bottom: 0.5rem;">5. Can an online "country" like Liberland be a real country? Which rule does it struggle with?</p>
+            <textarea id="q5" placeholder="Type your answer here..." aria-label="Answer for question 5"></textarea>
+        </div>
+    </section>
+
+    <!-- Footer Actions -->
+    <div class="footer-actions">
+        <button class="btn btn-primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
+        <button class="btn" style="background:#6c757d; color:white;" onclick="clearAllData()">🗑️ Clear Saved Data</button>
+    </div>
+
+</main>
+
+<script>
+    // ==========================================
+    // SIMULATION 1: OCEAN ZONES
+    // ==========================================
+    const slider = document.getElementById('distanceSlider');
+    const ship = document.getElementById('ship');
+    const oceanScene = document.getElementById('oceanScene');
+    const distanceText = document.getElementById('distanceText');
+    const kmText = document.getElementById('kmText');
+    const ruleText = document.getElementById('ruleText');
+    const creature1 = document.getElementById('creature1');
+    const creature2 = document.getElementById('creature2');
+
+    slider.addEventListener('input', function() {
+        const val = parseInt(this.value);
+        const percent = (val / 400) * 80 + 5; // 5% to 85%
+        
+        ship.style.left = `${percent}%`;
+
+        distanceText.textContent = val;
+        kmText.textContent = Math.round(val * 1.852);
+
+        if (val <= 12) {
+            ruleText.textContent = "Territorial Sea: The coastal country fully owns the water and seabed.";
+            oceanScene.style.background = "linear-gradient(to bottom, #87CEEB 0%, #4682B4 50%, #000080 100%)";
+            creature1.classList.remove('active');
+            creature2.classList.remove('active');
+        } else if (val <= 200) {
+            ruleText.textContent = "EEZ: Country owns resources (fish, oil), but ships can pass freely.";
+            oceanScene.style.background = "linear-gradient(to bottom, #4682B4 0%, #000080 60%, #000033 100%)";
+            creature1.classList.remove('active');
+            creature2.classList.remove('active');
+        } else {
+            ruleText.textContent = "High Seas (Mare Liberum): Shared by all humanity. No country owns it!";
+            oceanScene.style.background = "linear-gradient(to bottom, #000080 0%, #000033 50%, #000000 100%)";
+            creature1.classList.add('active');
+            creature2.classList.add('active');
+        }
+    });
+
+    // ==========================================
+    // SIMULATION 2: BIR TAWIL
+    // ==========================================
+    function showBorder(choice) {
+        const line1899 = document.getElementById('line1899');
+        const line1902 = document.getElementById('line1902');
+        const halaib = document.getElementById('halaib');
+        const birtawil = document.getElementById('birtawil');
+        const outcomeBox = document.getElementById('outcomeBox');
+        
+        // Reset
+        line1899.classList.remove('draw');
+        line1902.classList.remove('draw');
+        halaib.classList.remove('active');
+        birtawil.classList.remove('active');
+
+        setTimeout(() => {
+            if (choice === 'egypt') {
+                line1899.classList.add('draw');
+                halaib.classList.add('active');
+                outcomeBox.style.display = 'block';
+                outcomeBox.style.borderLeftColor = '#e63946';
+                outcomeBox.innerHTML = "<strong>🇪🇬 Egypt chooses the 1899 straight line:</strong><br>Egypt gets the valuable <strong>Halaib Triangle</strong> (with sea access). Because of this, they refuse to claim <strong>Bir Tawil</strong>.";
+            } else {
+                line1902.classList.add('draw');
+                halaib.classList.add('active');
+                outcomeBox.style.display = 'block';
+                outcomeBox.style.borderLeftColor = '#2a9d8f';
+                outcomeBox.innerHTML = "<strong>🇸🇩 Sudan chooses the 1902 curved line:</strong><br>Sudan gets the valuable <strong>Halaib Triangle</strong> (administratively). Because of this, they refuse to claim <strong>Bir Tawil</strong>.<br><em>Result: Bir Tawil is Terra Nullius!</em>";
+            }
+        }, 50);
+    }
+
+    // ==========================================
+    // SIMULATION 3: RIVER
+    // ==========================================
+    function showRiver(type) {
+        const oldRiver = document.getElementById('riverOld');
+        const newRiver = document.getElementById('riverNew');
+        const siga = document.getElementById('gornjaSiga');
+        const label = document.getElementById('sigaLabel');
+        const desc = document.getElementById('riverDesc');
+        const btnOld = document.getElementById('btnOld');
+        const btnNew = document.getElementById('btnNew');
+
+        if (type === 'old') {
+            oldRiver.style.opacity = '0.8';
+            newRiver.style.opacity = '0';
+            siga.classList.remove('visible');
+            label.classList.remove('visible');
+            desc.innerHTML = "The border follows the old winding river bed. Both countries are happy.";
+            btnOld.classList.add('active');
+            btnNew.classList.remove('active');
+        } else {
+            oldRiver.style.opacity = '0.2';
+            newRiver.style.opacity = '1';
+            setTimeout(() => {
+                siga.classList.add('visible');
+                label.classList.add('visible');
+            }, 300);
+            desc.innerHTML = "The river was straightened! The pocket of land (<strong>Gornja Siga</strong>) is now on the 'wrong' side. Both countries say it belongs to the other!";
+            btnNew.classList.add('active');
+            btnOld.classList.remove('active');
+        }
+    }
+
+    // ==========================================
+    // WORKBOOK: QUIZ
+    // ==========================================
+    const quizData = [
+        { q: "What does 'Terra Nullius' mean?", opts: ["Land of the free", "Land of no one", "Land of the pharaohs", "Land of ice"], ans: 1 },
+        { q: "Who argued the idea of 'Mare Liberum' (Free Sea)?", opts: ["Richard Byrd", "Vít Jedlička", "Hugo Grotius", "BBC News"], ans: 2 },
+        { q: "How far from the coast does the open sea (High Seas) begin?", opts: ["12 nm", "50 nm", "100 nm", "200 nm"], ans: 3 },
+        { q: "Why is Bir Tawil unclaimed?", opts: ["It is covered in ice", "Both countries want the other border line to get Halaib", "It is too far out at sea", "The UN banned claiming it"], ans: 1 },
+        { q: "Where is Marie Byrd Land located?", opts: ["Africa", "Europe", "Antarctica", "South America"], ans: 2 },
+        { q: "What is Liberland?", opts: ["A new US State", "A micronation on Gornja Siga", "A ship in the open sea", "A treaty in Antarctica"], ans: 1 },
+        { q: "What percentage of Earth's surface is international waters?", opts: ["About 10%", "About 25%", "About 43%", "About 70%"], ans: 2 },
+        { q: "Why was 'terra nullius' misused in colonial times?", opts: ["To protect animals", "To claim inhabited lands by calling them 'empty'", "To build ships", "To map the stars"], ans: 1 },
+        { q: "What happened to the Danube river near Gornja Siga?", opts: ["It dried up", "It was straightened", "It flooded a city", "It changed color"], ans: 1 },
+        { q: "How many countries hold older claims in Antarctica?", opts: ["Two", "Five", "Seven", "Ten"], ans: 2 }
+    ];
+
+    const quizContainer = document.getElementById('quizContainer');
+    quizData.forEach((item, index) => {
+        let html = `<div class="quiz-question" id="qq${index}"><p>${index + 1}. ${item.q}</p><div class="quiz-options">`;
+        item.opts.forEach((opt, i) => {
+            html += `<label><input type="radio" name="q${index}" value="${i}"> ${opt}</label>`;
+        });
+        html += `</div></div>`;
+        quizContainer.innerHTML += html;
+    });
+
+    function checkQuiz() {
+        let score = 0;
+        quizData.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const questionDiv = document.getElementById(`qq${index}`);
+            const labels = questionDiv.querySelectorAll('label');
+            
+            labels.forEach(l => l.classList.remove('correct', 'incorrect'));
+
+            if (selected) {
+                const val = parseInt(selected.value);
+                if (val === item.ans) {
+                    score++;
+                    labels[val].classList.add('correct');
+                } else {
+                    labels[val].classList.add('incorrect');
+                    labels[item.ans].classList.add('correct');
+                }
+            } else {
+                labels[item.ans].classList.add('correct');
+            }
+        });
+        
+        document.getElementById('scoreDisplay').innerText = score;
+        const status = document.getElementById('quizStatus');
+        status.style.display = 'block';
+        status.style.background = score >= 7 ? '#d1fae5' : '#fef3c7';
+        status.style.color = score >= 7 ? '#065f46' : '#92400e';
+        status.textContent = score === 10 ? "🌟 Perfect Score! You're a Geography Expert!" : `You scored ${score}/10. Review the highlighted answers!`;
+        localStorage.setItem('tm_quiz_score', score);
+    }
+
+    // ==========================================
+    // WORKBOOK: MATCHING GAME
+    // ==========================================
+    const matchData = [
+        { term: "Terra Nullius", def: "Land belonging to no recognized state" },
+        { term: "Mare Liberum", def: "The principle that the sea is free for all" },
+        { term: "Bir Tawil", def: "Unclaimed desert between Egypt and Sudan" },
+        { term: "Liberland", def: "A self-declared micronation on the Danube" }
+    ];
+
+    const matchGrid = document.getElementById('matchGrid');
+    let selectedTerm = null;
+    let matchedCount = 0;
+    const shuffledDefs = [...matchData].sort(() => Math.random() - 0.5);
+
+    matchData.forEach((item, i) => {
+        matchGrid.innerHTML += `<div class="match-item term-item" data-id="${i}" onclick="selectTerm(this)" tabindex="0">${item.term}</div>`;
+    });
+    shuffledDefs.forEach((item, i) => {
+        const originalIndex = matchData.findIndex(m => m.def === item.def);
+        matchGrid.innerHTML += `<div class="match-item def-item" data-id="${originalIndex}" onclick="selectDef(this)" tabindex="0">${item.def}</div>`;
+    });
+
+    function selectTerm(el) {
+        if (el.classList.contains('matched')) return;
+        document.querySelectorAll('.term-item').forEach(e => e.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedTerm = el;
+    }
+
+    function selectDef(el) {
+        if (!selectedTerm || el.classList.contains('matched')) return;
+        
+        if (selectedTerm.dataset.id === el.dataset.id) {
+            selectedTerm.classList.add('matched');
+            selectedTerm.classList.remove('selected');
+            el.classList.add('matched');
+            matchedCount++;
+            if (matchedCount === matchData.length) {
+                const status = document.getElementById('matchStatus');
+                status.style.display = 'block';
+                status.style.background = '#d1fae5';
+                status.style.color = '#065f46';
+                status.textContent = "🎉 Perfect! All words matched correctly!";
+            }
+        } else {
+            el.style.background = '#fee2e2';
+            el.style.borderColor = '#ef4444';
+            setTimeout(() => { 
+                el.style.background = ''; 
+                el.style.borderColor = '';
+            }, 600);
+        }
+        selectedTerm = null;
+    }
+
+    // ==========================================
+    // LOCAL STORAGE (Privacy-First Saving)
+    // ==========================================
+    const textareas = document.querySelectorAll('textarea');
+    textareas.forEach(ta => {
+        const saved = localStorage.getItem(`tm_wb_${ta.id}`);
+        if (saved) ta.value = saved;
+        
+        ta.addEventListener('input', () => {
+            localStorage.setItem(`tm_wb_${ta.id}`, ta.value);
+        });
+    });
+
+    const savedScore = localStorage.getItem('tm_quiz_score');
+    if (savedScore) {
+        document.getElementById('scoreDisplay').innerText = savedScore;
+    }
+
+    function clearAllData() {
+        if (confirm("Are you sure you want to clear all your saved answers and quiz progress?")) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+</script>
+
+</body>
+</html>
